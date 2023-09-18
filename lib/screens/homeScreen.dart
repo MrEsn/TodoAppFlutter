@@ -3,11 +3,13 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:todotask/constant.dart';
 import 'package:todotask/main.dart';
 import 'package:todotask/screens/createctegory.dart';
+import 'package:todotask/screens/searchscreen.dart';
 import 'package:todotask/screens/taskScreen.dart';
 import 'package:todotask/screens/category.dart';
 import 'package:todotask/screens/createtask.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import '../models/Task.dart';
+import "package:get/get.dart";
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -745,8 +747,9 @@ class AppBar extends StatelessWidget {
             ),
           ),
         )),
-        Stack(children: [
-          Container(
+        GestureDetector(
+          onTap: (){Get.to(SearchScreen());},
+          child: Container(
             margin: EdgeInsets.only(
               top: 11,
             ),
@@ -758,7 +761,7 @@ class AppBar extends StatelessWidget {
               size: 36,
             ),
           ),
-        ])
+        ),
       ],
     );
   }

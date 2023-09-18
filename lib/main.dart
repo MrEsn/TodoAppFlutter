@@ -8,7 +8,7 @@ import 'package:todotask/screens/homeScreen.dart';
 import 'package:todotask/screens/mainScreen.dart';
 import 'package:todotask/screens/taskScreen.dart';
 import 'package:todotask/screens/category.dart';
-
+import 'package:get/get.dart';
 void main(List<String> args) async {
   await Hive.initFlutter();
   Hive.registerAdapter(TaskAdapter());
@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
         theme: ThemeData(fontFamily: 'Nunito'),
         debugShowCheckedModeBanner: false,
         home: MainScreen());
