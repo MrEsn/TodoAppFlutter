@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:todotask/constant.dart';
+import 'package:todotask/main.dart';
 import '../models/Category.dart';
 import 'package:todotask/models/Task.dart';
 import 'package:todotask/screens/createctegory.dart';
@@ -24,6 +25,7 @@ class NewTaskScreen extends StatefulWidget {
   static String Data2 = "";
   static String Time = "";
   static String newedit = "";
+  static int index = 0;
   static List<CategoryNader> Categorys = [
     CategoryNader(
       title: "School",
@@ -394,9 +396,9 @@ class _SaveButtonWedgetState extends State<SaveButtonWedget> {
       width: 80,
       height: 35,
       child: ElevatedButton(
-          onPressed: () {
+          onPressed: () async {
             //  NewTaskScreen.Categoryha.add()
-            /*HomeScreen.tasks.add(Task(
+            Task item = Task(
                 id: Random().nextInt(9999),
                 title: NewTaskScreen.titlecontrollor.text,
                 description: NewTaskScreen.descriptioncontrollor.text,
@@ -404,20 +406,19 @@ class _SaveButtonWedgetState extends State<SaveButtonWedget> {
                 time: NewTaskScreen.Time,
                 level: NewTaskScreen.level,
                 category: NewTaskScreen.categoryss,
-                more: false));*/
-            hiveBox.add(Task(
-                id: Random().nextInt(9999),
-                title: NewTaskScreen.titlecontrollor.text,
-                description: NewTaskScreen.descriptioncontrollor.text,
-                date: NewTaskScreen.Data,
-                time: NewTaskScreen.Time,
-                level: NewTaskScreen.level,
-                category: NewTaskScreen.categoryss,
-                more: false));
+                more: false);
+            if (NewTaskScreen.newedit == "Edit") {
+              hiveBox.putAt(NewTaskScreen.index, item).then((value) async {
+                await MyApp.getDatatask();
+                Get.back();
+              });
+              //HomeScreen.tasks[NewTaskScreen.index] = item;
+            } else {
+              // HomeScreen.tasks.add(item);
+              hiveBox.add(item).then((value) => Get.back());
+            }
             /* final tile = NewTaskScreen.Categorys.firstWhere(
                 (item) => item.title == NewTaskScreen.categoryss);*/
-            setState(() {});
-            Navigator.pop(context);
           },
           style:
               ButtonStyle(backgroundColor: MaterialStateProperty.all(kbuttom)),

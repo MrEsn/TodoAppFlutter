@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:todotask/constant.dart';
 import 'package:todotask/main.dart';
 import 'package:todotask/screens/createctegory.dart';
@@ -42,9 +43,11 @@ class _HomeScreenState extends State<HomeScreen> {
       updateTask();
       setState(() {});
     });
+
     super.initState();
   }
 
+  Box<Task> hiveBox = Hive.box<Task>('taskBox');
   @override
   Widget build(BuildContext context) {
     double ScreenWidth = MediaQuery.of(context).size.width;
@@ -346,17 +349,22 @@ class _HomeScreenState extends State<HomeScreen> {
         motion: DrawerMotion(),
         children: [
           SlidableAction(
-            onPressed: ((context) {
-              setState(() {
-                for (int i = 0; i < HomeScreen.tasks.length; i++) {
+            onPressed: (context) {
+              hiveBox.deleteAt(index).then((value) {
+                MyApp.getDatatask().then((value) {
+                  updateTask();
+                  setState(() {});
+                });
+              });
+
+              /*for (int i = 0; i < HomeScreen.tasks.length; i++) {
                   if (data.id == HomeScreen.tasks[i].id) {
-                    HomeScreen.tasks.removeAt(i);
+                    hiveBox.deleteAt(i);
+                    MyApp.getDatatask();
                     break;
                   }
-                }
-                updateTask();
-              });
-            }),
+                }*/
+            },
             backgroundColor: Kback,
             icon: Icons.keyboard_double_arrow_left_rounded,
             label: "Delete",
@@ -380,9 +388,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 NewTaskScreen.categoryss = HomeScreen.tasks[index].category;
                 NewTaskScreen.Data = HomeScreen.tasks[index].date;
                 NewTaskScreen.newedit = "Edit";
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return NewTaskScreen();
-                }));
+                NewTaskScreen.index = index;
+                Get.to(NewTaskScreen())!.then((value) async {
+                  await MyApp.getDatatask();
+                  updateTask();
+                  setState(() {});
+                });
               });
             }),
             backgroundColor: Kback,
@@ -748,7 +759,9 @@ class AppBar extends StatelessWidget {
           ),
         )),
         GestureDetector(
-          onTap: (){Get.to(SearchScreen());},
+          onTap: () {
+            Get.to(SearchScreen());
+          },
           child: Container(
             margin: EdgeInsets.only(
               top: 11,

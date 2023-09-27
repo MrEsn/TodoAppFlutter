@@ -9,8 +9,9 @@ import 'createtask.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
-  static TextEditingController SearchInputController = new TextEditingController();
-  static List<Task> Tasks = [...HomeScreen.tasks]; 
+  static TextEditingController SearchInputController =
+      new TextEditingController();
+  static List<Task> Tasks = [...HomeScreen.tasks];
   @override
   State<SearchScreen> createState() => _SearchScreenState();
 }
@@ -22,60 +23,88 @@ class _SearchScreenState extends State<SearchScreen> {
     // TODO: implement initState
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        backgroundColor: Kback,
-        body: Container(
-          padding: EdgeInsets.symmetric(horizontal: 10),
-          width: double.infinity,
-          height: double.infinity,
-          child: Column(
-            children: [
-              Container(
-                margin: EdgeInsets.only(top: 20),
-                padding: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
-                width: double.infinity,
-                child: TextField(
-                  controller: SearchScreen.SearchInputController,
-                  style: TextStyle(color: Colors.white),
-                  decoration: InputDecoration(
-                    hintText: "Search In Task ...",
-                    isCollapsed: true,
-                    hintStyle: TextStyle(color: Colors.white54),
-                    border: InputBorder.none,
-                    focusedBorder: InputBorder.none
+        child: Scaffold(
+      backgroundColor: Kback,
+      body: Container(
+        padding: EdgeInsets.symmetric(horizontal: 10),
+        width: double.infinity,
+        height: double.infinity,
+        child: Column(
+          children: [
+            SizedBox(
+              height: 20,
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(
+                  width: 2,
+                ),
+                GestureDetector(
+                  child: Icon(
+                    Icons.arrow_back,
+                    size: 23,
+                    color: Colors.white,
                   ),
-                  onChanged: (v)=>setState(() {
-                    
-                  }),
+                  onTap: () {
+                    setState(() {
+                      Navigator.pop(context);
+                    });
+                  },
                 ),
-                decoration: BoxDecoration(
-                  color: Ktask,
-                  borderRadius: BorderRadius.circular(10)
+                SizedBox(
+                  width: 5,
                 ),
-              ),
-              SizedBox(height: 10,),
-              Expanded(
-                child: ListView.builder(
-                    itemBuilder: (context, index) {
-                      if(SearchScreen.Tasks[index].title.contains(SearchScreen.SearchInputController.text)){
+                Expanded(
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    child: TextField(
+                      controller: SearchScreen.SearchInputController,
+                      style: TextStyle(color: Colors.white),
+                      decoration: InputDecoration(
+                          hintText: "Search In Task ...",
+                          isCollapsed: true,
+                          hintStyle: TextStyle(color: Colors.white54),
+                          border: InputBorder.none,
+                          focusedBorder: InputBorder.none),
+                      onChanged: (v) => setState(() {}),
+                    ),
+                    decoration: BoxDecoration(
+                        color: Ktask, borderRadius: BorderRadius.circular(10)),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Expanded(
+              child: ListView.builder(
+                  itemBuilder: (context, index) {
+                    if (SearchScreen.Tasks[index].title
+                        .contains(SearchScreen.SearchInputController.text)) {
                       return TasksWedget(
                         SearchScreen.Tasks[index],
                         index,
-                      );}
-                      return SizedBox();
-                    },
-                    itemCount: SearchScreen.Tasks.length),
-              )
-            ],
-          ),
+                      );
+                    }
+                    return SizedBox();
+                  },
+                  itemCount: SearchScreen.Tasks.length),
+            )
+          ],
         ),
-      )
-    );
+      ),
+    ));
   }
-   Widget TasksWedget(Task data, int index) {
+
+  Widget TasksWedget(Task data, int index) {
     return Slidable(
       endActionPane: ActionPane(
         motion: DrawerMotion(),
@@ -90,9 +119,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   }
                 }
                 SearchScreen.Tasks = [...HomeScreen.tasks];
-                setState(() {
-                  
-                });
+                setState(() {});
               });
             }),
             backgroundColor: Kback,
@@ -264,6 +291,7 @@ class _SearchScreenState extends State<SearchScreen> {
       ),
     );
   }
+
   GestureDetector MoreButtonWiedget(int index) {
     return GestureDetector(
       onTap: () {

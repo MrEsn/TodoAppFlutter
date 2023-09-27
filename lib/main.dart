@@ -6,9 +6,11 @@ import 'package:todotask/screens/createctegory.dart';
 import 'package:todotask/screens/createtask.dart';
 import 'package:todotask/screens/homeScreen.dart';
 import 'package:todotask/screens/mainScreen.dart';
+import 'package:todotask/screens/searchscreen.dart';
 import 'package:todotask/screens/taskScreen.dart';
 import 'package:todotask/screens/category.dart';
 import 'package:get/get.dart';
+
 void main(List<String> args) async {
   await Hive.initFlutter();
   Hive.registerAdapter(TaskAdapter());
@@ -30,13 +32,13 @@ class MyApp extends StatelessWidget {
     print(HomeScreen.tasks);
   }
 
-  /* static void getDatacat() {
+  static void getDatacat() async {
     HomeScreen.categorys.clear();
-   Box<CategoryNader> hiveBox = Hive.box<CategoryNader>('categoryBox');
+    Box<CategoryNader> hiveBox = await Hive.box<CategoryNader>('categoryBox');
     for (var value in hiveBox.values) {
-      HomeScreen.categorys.add(value);
+      NewTaskScreen.Categorys.add(value);
     }
-  }*/
+  }
 
   @override
   Widget build(BuildContext context) {
