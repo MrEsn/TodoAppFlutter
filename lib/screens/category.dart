@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todotask/constant.dart';
+import 'package:todotask/main.dart';
 import 'package:todotask/models/Category.dart';
 import 'package:todotask/screens/createctegory.dart';
 import 'package:todotask/screens/createtask.dart';
@@ -16,6 +17,17 @@ class CategoryScreen extends StatefulWidget {
 }
 
 class _CategoryScreenState extends State<CategoryScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    getcategory();
+  }
+
+  void getcategory() async {
+    await MyApp.getDatacat();
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     double SCREENWidth = MediaQuery.of(context).size.width;
@@ -88,7 +100,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
             NewCategoryScreen.selectedColor = 0;
             Navigator.push(context, MaterialPageRoute(builder: (context) {
               return NewCategoryScreen();
-            })).then((value) {
+            })).then((value) async {
+              await MyApp.getDatacat();
               setState(() {});
             });
           },
@@ -139,14 +152,14 @@ class CategoryContanerBIGWidget extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(left: 8.0),
                       child: Text(
-                        this.data.note.length < 15
+                        this.data.note.length < 8
                             ? this.data.note
                             : this.data.note.substring(
                                     0,
-                                    this.data.note.length < 15
+                                    this.data.note.length < 8
                                         ? this.data.note.length
-                                        : 15) +
-                                (this.data.note.length > 18 ? " ..." : ""),
+                                        : 8) +
+                                (this.data.note.length > 8 ? " ..." : ""),
                         style: TextStyle(color: Colors.white, fontSize: 16.5),
                       ),
                     )
@@ -220,14 +233,14 @@ class CategoryContainerWidget extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 7),
                   child: Text(
-                    this.data.note.length < 8
+                    this.data.note.length < 5
                         ? this.data.note
                         : this.data.note.substring(
                                 0,
-                                this.data.note.length < 8
+                                this.data.note.length < 5
                                     ? this.data.note.length
-                                    : 8) +
-                            (this.data.note.length > 8 ? " ..." : ""),
+                                    : 5) +
+                            (this.data.note.length > 5 ? " ..." : ""),
                     style: TextStyle(color: Colors.white, fontSize: 14),
                   ),
                 ),

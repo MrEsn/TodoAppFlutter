@@ -40,8 +40,10 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     MyApp.getDatatask().then((value) {
-      updateTask();
-      setState(() {});
+      MyApp.getDatacat().then(((value) {
+        updateTask();
+        setState(() {});
+      }));
     });
 
     super.initState();

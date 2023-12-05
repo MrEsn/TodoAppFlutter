@@ -32,8 +32,8 @@ class MyApp extends StatelessWidget {
     print(HomeScreen.tasks);
   }
 
-  static void getDatacat() async {
-    HomeScreen.categorys.clear();
+  static Future<void> getDatacat() async {
+    NewTaskScreen.Categorys.clear();
     Box<CategoryNader> hiveBox = await Hive.box<CategoryNader>('categoryBox');
     for (var value in hiveBox.values) {
       NewTaskScreen.Categorys.add(value);

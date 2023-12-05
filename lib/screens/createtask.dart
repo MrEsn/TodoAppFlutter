@@ -19,41 +19,14 @@ class NewTaskScreen extends StatefulWidget {
   static TextEditingController categorycontrollor = TextEditingController();
   static String level = 'Difficulty';
   static var categoryss = 'Category';
-  static var Categoryha = ['Add Category', 'program', 'game'];
+  static var Categoryha = ['Add Category'];
   static String Data = "Calendar";
   static int id = 0;
   static String Data2 = "";
   static String Time = "";
   static String newedit = "";
   static int index = 0;
-  static List<CategoryNader> Categorys = [
-    CategoryNader(
-      title: "School",
-      note:
-          "Sit eu duis duis exercitation amet officia aliqua sint fugiat consequat non occaecat sunt sit. Consequat ex duis tempor eiusmod labore occaecat est sit proident. Sint velit quis commodo ipsum anim sint qui Lorem ad nulla officia officia. Velit aliquip in cupidatat excepteur magna ullamco ex aliquip consectetur. Ipsum voluptate id labore Lorem. Magna irure reprehenderit nulla voluptate ipsum laboris eu qui ipsum laboris excepteur cillum sit ipsum.",
-      id: 0,
-      level: false,
-    ),
-    CategoryNader(
-      title: "jsdjcnkn",
-      note: "sjdk",
-      id: 1,
-      level: true,
-    ),
-    CategoryNader(
-      title: "program",
-      note:
-          "Sit eu duis duis exercitation amet officia aliqua sint fugiat consequat non occaecat sunt sit. Consequat ex duis tempor eiusmod labore occaecat est sit proident. Sint velit quis commodo ipsum anim sint qui Lorem ad nulla officia officia. Velit aliquip in cupidatat excepteur magna ullamco ex aliquip consectetur. Ipsum voluptate id labore Lorem. Magna irure reprehenderit nulla voluptate ipsum laboris eu qui ipsum laboris excepteur cillum sit ipsum.",
-      id: 2,
-      level: true,
-    ),
-    CategoryNader(
-      title: "game",
-      note: "sjdfk",
-      id: 3,
-      level: false,
-    ),
-  ];
+  static List<CategoryNader> Categorys = [];
   @override
   State<NewTaskScreen> createState() => _NewTaskScreenState();
 }
@@ -73,6 +46,9 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
         NewTaskScreen.categoryss == '' ? 'Category' : NewTaskScreen.categoryss;
     NewTaskScreen.level =
         NewTaskScreen.level == '' ? 'Difficulty' : NewTaskScreen.level;
+    NewTaskScreen.Categorys.forEach((element) {
+      NewTaskScreen.Categoryha.add(element.title);
+    });
   }
 
   @override

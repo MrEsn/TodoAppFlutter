@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:todotask/constant.dart';
 import 'package:todotask/models/Category.dart';
@@ -204,20 +205,14 @@ class _SavedBottomWedget2State extends State<SavedBottomWedget2> {
           onPressed: () {
             NewTaskScreen.Categoryha.add(
                 NewCategoryScreen.TextFieledCategorycontrollor.text);
-            /* NewTaskScreen.Categorys.add(CategoryNader(
+            CategoryNader Item = CategoryNader(
               title: NewCategoryScreen.TextFieledCategorycontrollor.text,
               note: NewCategoryScreen.TextFieledCategoryNotecontrollor.text,
               id: Random().nextInt(9999),
               level: NewCategoryScreen.selectedColor == 0 ? true : false,
-            ));*/
-            hiveBox.add(CategoryNader(
-              title: NewCategoryScreen.TextFieledCategorycontrollor.text,
-              note: NewCategoryScreen.TextFieledCategoryNotecontrollor.text,
-              id: Random().nextInt(9999),
-              level: NewCategoryScreen.selectedColor == 0 ? true : false,
-            ));
+            );
+            hiveBox.add(Item).then((value) => Get.back());
             NewCategoryScreen.issave = true;
-            Navigator.pop(context);
           },
           style:
               ButtonStyle(backgroundColor: MaterialStateProperty.all(kbuttom)),
